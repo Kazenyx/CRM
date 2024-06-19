@@ -18,7 +18,7 @@
         {% for i in orders %}
 
         <tr>
-          <td></td>
+          <td><a href="{% url 'customer' i.customer.id %}">View</a></td>
           <td>{{i.customer.name}}</td>
           <td>{{i.status}}</td>
         </tr>

@@ -3,11 +3,11 @@ body {
   overflow-x: hidden;
 }
 #total-orders {
-  background-color: #4cb4c7;
+  background-color: #9db8bd;
 }
 #orders-delivered {
-  background-color: #7abecc;
+  background-color: #9db8bd;
 }
 #orders-pending {
-  background-color: #7cd1c0;
+  background-color: #9db8bd;
 }

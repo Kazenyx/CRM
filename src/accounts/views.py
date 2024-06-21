@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.forms import inlineformset_factory
+from django.core.paginator import Paginator
 
 from .models import *
 from .forms import OrderForm
@@ -11,17 +12,26 @@ def home(request):
   orders = Order.objects.all()
   customers = Customer.objects.all()
   
+  p = Paginator(orders, 2)
+  page = request.GET.get('page')
+  pg = p.get_page(page)
+  
   total_customers = customers.count()
   total_orders = orders.count()
   delivered = orders.filter(status='Delivered').count()
   pending = orders.filter(status='Pending').count()
   
-  context = {'orders':orders, 'customers':customers, 'total_customers': total_customers, 'total_orders': total_orders, 'delivered': delivered, 'pending': pending}
+  context = {'orders':orders, 'customers':customers, 'total_customers': total_customers, 'total_orders': total_orders, 'delivered': delivered, 'pending': pending, 'pg': pg}
   return render(request, 'accounts/dashboard.html', context)
 
 def products(request):
   products = Product.objects.all()
-  context = {'products':products}
+  
+  p = Paginator(products, 1)
+  page = request.GET.get('page')
+  products_page = p.get_page(page)
+  
+  context = {'products':products, 'products_page':products_page}
   return render(request, 'accounts/products.html', context)
 
 def customer(request, pk):
@@ -63,7 +73,7 @@ def updateOrder(request, pk):
       return redirect('home')
   
   context = {'form':form}
-  return render(request, 'accounts/order_form.html', context)
+  return render(request, 'accounts/update.html', context)
 
 def deleteOrder(request, pk):
   order = Order.objects.get(id=pk)

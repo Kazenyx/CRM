@@ -11,7 +11,7 @@
       <a class="btn btn-primary btn-sm btn-block" href="">Create Customer</a>
       <table class="table table-sm">
         <tr>
-          <th></th>
+          <th>row</th>
           <th>Customer</th>
           <th>Orders</th>
           <th>Detail</th>
@@ -19,9 +19,8 @@
           
         </tr>
           {% for i in pg %}
-          
           <tr>
-            <td></td>
+            <td>{{ forloop.counter }}</td>
             <td>{{i.customer.name}}</td>
             <td>{{i.status}}</td>
             <td>
@@ -74,8 +73,8 @@
 </div>
 
 <div class="p-4">
-  <nav aria-label="Page navigation example">
-    <ul class="pagination">
+  <nav aria-label="Page navigation example ">
+    <ul class="pagination justify-content-center">
 
         {% if pg.has_previous %}
           <li class="page-item"><a class="page-link" href="?page=1">&laquo First</a></li>
@@ -85,7 +84,11 @@
         {% endif %}
 
 
-        <li class="page-item disabled"><a href="#" class="page-link">Page {{pg.number}} of {{pg.paginator.num_pages}}</a></li>
+        <!-- <li class="page-item disabled"><a href="#" class="page-link">Page {{pg.number}} of {{pg.paginator.num_pages}}</a></li> -->
+
+        {% for i in nums %}
+        <li class="page-item"><a class="page-link" href="?page={{forloop.counter}}">{{ forloop.counter }}</a></li>
+        {% endfor %}
 
         {% if pg.has_next %}
           <li class="page-item"><a class="page-link" href="?page={{pg.next_page_number}}">next</a></li>

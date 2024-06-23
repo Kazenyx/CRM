@@ -23,17 +23,40 @@
   </button>
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav">
+      {% if request.user.is_staff %}
       <li class="nav-item active">
         <a class="nav-link" href="{% url 'home' %}">Dashboard </a>
       </li>
+      {% endif %}
       <li class="nav-item">
         <a class="nav-link" href="{% url 'products' %}">Products</a>
       </li>
+      {% if request.user.is_authenticated%}
+      {% if request.user.is_staff is False %}
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'user-page' %}">My Orders</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'account' %}">Settings</a>
+      </li>
+      {% endif %}
+      {% endif %}
     </ul>
   </div>
+  {% if request.user.is_authenticated%}
+  {% if request.user.is_staff is False %}
+  <span class="hello-msg">Hello, {{request.user}}</span>
+  {% endif %}
+  {% endif %}
+
+  {% if request.user.is_authenticated%}
+  {% if request.user.is_staff is True %}
+  <span class="hello-msg">Hello, {{request.user}}</span>
+  {% endif %}
+  {% endif %}
 
   {% if request.user.is_authenticated %}
-  <span class="hello-msg">Hello, {{request.user}}</span>
+  
   <span ><a class="hello-msg" href="{% url 'logout' %}">Logout</a></span>
   {% else %}
   <span ><a class="hello-msg" href="{% url 'login' %}">Login</a></span>

@@ -14,3 +14,6 @@ body {
 .hrcolor {
   background-color: gray;
 }
+.form-group {
+  margin-left: 5px;
+}

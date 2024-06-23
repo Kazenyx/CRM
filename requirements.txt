@@ -2,3 +2,5 @@ django
 ipython
 django-filter
 pillow
+python-decouple
+dj-database-url
